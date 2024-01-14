@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/models/character_model.dart';
-import '../../widgets/character/character_card.dart';
+import '../../widgets/character/characters_list.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -13,6 +12,8 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  final ScrollController _scrollController = ScrollController();
+
   bool _isSearching = false;
 
   @override
@@ -28,6 +29,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         ),
         child: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverPadding(
               padding: const EdgeInsets.symmetric(
@@ -104,20 +106,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) => CharacterCard(
-                  character: mockCharacter,
-                  imageHeroTag: 'home_character_card_$index',
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/detail', arguments: {
-                      'character': mockCharacter,
-                      'imageHeroTag': 'home_character_card_$index',
-                    });
-                  },
-                ),
-                childCount: 20,
-              ),
+            CharactersList(
+              scrollController: _scrollController,
             ),
           ],
         ),

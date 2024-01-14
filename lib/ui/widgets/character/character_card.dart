@@ -6,6 +6,7 @@ import '../../../domain/models/character_model.dart';
 import '../../providers/common/dominant_color_provider.dart';
 import '../../providers/common/foreground_color_provider.dart';
 import 'character_gender.dart';
+import 'character_image_placeholder.dart';
 import 'character_species.dart';
 
 class CharacterCard extends ConsumerStatefulWidget {
@@ -47,7 +48,9 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
           ],
         ),
         margin: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-        height: 138,
+        // height: 138,
+        constraints: const BoxConstraints(minHeight: 138, maxHeight: 138),
+
         child: Material(
           borderRadius: BorderRadius.circular(8),
           child: InkWell(
@@ -69,6 +72,7 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
                 Positioned.fill(
                   top: 12,
                   left: 128,
+                  right: 16,
                   bottom: 8,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,13 +80,18 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
                       Text(
                         widget.character.name ?? '',
                         style: theme.textTheme.titleLarge,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 4),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 2,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CharacterSpecies(character: widget.character),
+                          CharacterSpecies(
+                            character: widget.character,
+                            isExpanded: true,
+                          ),
+                          const SizedBox(height: 2),
                           CharacterGender(character: widget.character),
                         ],
                       ),
@@ -112,11 +121,14 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
   ClipRRect _buildImage() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
-      child: CachedNetworkImage(
-        imageUrl: widget.character.image ?? '',
-        width: 128,
-        height: 128,
-      ),
+      child: widget.character.image == null || widget.character.image!.isEmpty
+          ? const CharacterImagePlaceholder()
+          : CachedNetworkImage(
+              imageUrl: widget.character.image ?? '',
+              placeholder: (context, url) => const CharacterImagePlaceholder(),
+              width: 128,
+              height: 128,
+            ),
     );
   }
 }

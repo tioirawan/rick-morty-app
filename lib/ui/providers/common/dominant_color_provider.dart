@@ -11,8 +11,12 @@ Future<Color?> dominantColor(DominantColorRef ref, String? imageUrl) async {
     return null;
   }
 
-  final paletteGenerator = await PaletteGenerator.fromImageProvider(
-    CachedNetworkImageProvider(imageUrl),
-  );
-  return paletteGenerator.dominantColor?.color;
+  try {
+    final paletteGenerator = await PaletteGenerator.fromImageProvider(
+      CachedNetworkImageProvider(imageUrl),
+    );
+    return paletteGenerator.dominantColor?.color;
+  } on Exception catch (_) {
+    return null;
+  }
 }
