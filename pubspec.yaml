@@ -20,6 +20,7 @@ dependencies:
   google_fonts: ^6.1.0
   json_annotation: ^4.8.1
   lottie: ^3.0.0
+  mockito: ^5.4.4
   palette_generator: ^0.3.3+3
   path: ^1.8.3
   riverpod_annotation: ^2.3.3
