@@ -12,6 +12,7 @@ This app is built with Flutter for BIGIO's Mobile App Developer Internship Take 
   - [Features](#features)
   - [Libraries](#libraries)
   - [Project Structure](#project-structure)
+  - [Screenshots](#screenshots)
   - [APK Link](#apk-link)
 
 ## Features
@@ -81,6 +82,12 @@ lib
   - `route` - Contains classes that handle the routing of the app.
   - `theme` - Contains classes that represent the theme of the app.
   - `widgets` - Contains classes that represent the widgets of the app.
+
+## Screenshots
+|              Splash Screen               |             Home Screen              |              Search Screen               |              Detail Screen               |
+| :--------------------------------------: | :----------------------------------: | :--------------------------------------: | :--------------------------------------: |
+| ![Splash Screen](screenshots/splash.png) | ![Home Screen](screenshots/home.png) | ![Search Screen](screenshots/search.png) | ![Detail Screen](screenshots/detail.png) |
+
 
 ## APK Link
 [Download APK](https://drive.google.com/drive/folders/1-azipIZpgVCxcqaDGDkP3AGDgwkWgJ5G?usp=sharing)
