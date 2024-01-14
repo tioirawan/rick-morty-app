@@ -6,7 +6,7 @@ part of 'dominant_color_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dominantColorHash() => r'61309a82e941fd4a96af13d75a94183c379f253d';
+String _$dominantColorHash() => r'2fe77f2302a291f2782378b0a6ba4304debc9d8e';
 
 /// Copied from Dart SDK
 class _SystemHash {

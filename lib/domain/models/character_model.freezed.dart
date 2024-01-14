@@ -273,7 +273,7 @@ class __$$CharacterModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CharacterModelImpl implements _CharacterModel {
+class _$CharacterModelImpl extends _CharacterModel {
   _$CharacterModelImpl(
       {this.id,
       this.name,
@@ -287,7 +287,8 @@ class _$CharacterModelImpl implements _CharacterModel {
       final List<String>? episode,
       this.url,
       this.created})
-      : _episode = episode;
+      : _episode = episode,
+        super._();
 
   factory _$CharacterModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CharacterModelImplFromJson(json);
@@ -382,7 +383,7 @@ class _$CharacterModelImpl implements _CharacterModel {
   }
 }
 
-abstract class _CharacterModel implements CharacterModel {
+abstract class _CharacterModel extends CharacterModel {
   factory _CharacterModel(
       {final int? id,
       final String? name,
@@ -396,6 +397,7 @@ abstract class _CharacterModel implements CharacterModel {
       final List<String>? episode,
       final String? url,
       final String? created}) = _$CharacterModelImpl;
+  _CharacterModel._() : super._();
 
   factory _CharacterModel.fromJson(Map<String, dynamic> json) =
       _$CharacterModelImpl.fromJson;

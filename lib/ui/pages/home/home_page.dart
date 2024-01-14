@@ -130,7 +130,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
           ),
           onChanged: (value) {
-            print('value: $value  ');
             _debouncer.run(
               () =>
                   ref.read(charactersProvider.notifier).searchCharacters(value),

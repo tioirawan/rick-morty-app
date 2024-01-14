@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/character_model.dart';
+import '../../providers/characters/favorite_characters_provider.dart';
 import '../../providers/common/dominant_color_provider.dart';
 import '../../providers/common/foreground_color_provider.dart';
 import 'character_gender.dart';
@@ -96,17 +97,7 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
                         ],
                       ),
                       const Spacer(),
-                      FilledButton(
-                        onPressed: () {},
-                        style: FilledButton.styleFrom(
-                          backgroundColor: dominantColor,
-                          foregroundColor:
-                              ref.watch(foregroundColorProvider(dominantColor)),
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          minimumSize: const Size(0, 32),
-                        ),
-                        child: const Text('Make my favorite'),
-                      ),
+                      _buildFavoriteButton(dominantColor),
                     ],
                   ),
                 ),
@@ -115,6 +106,46 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildFavoriteButton(Color dominantColor) {
+    return Consumer(
+      builder: (context, ref, child) {
+        final isFavorited = ref.watch(
+          isCharacterFavoritedProvider(widget.character),
+        );
+        final forground = ref.watch(foregroundColorProvider(dominantColor));
+
+        return FilledButton(
+            onPressed: () {
+              ref.read(favoriteCharactersProvider.notifier).toggleFavorite(
+                    widget.character,
+                  );
+            },
+            style: FilledButton.styleFrom(
+              // backgroundColor: dominantColor,
+              backgroundColor: isFavorited ? dominantColor : Colors.black45,
+              foregroundColor: isFavorited ? forground : Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              minimumSize: const Size(0, 32),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (isFavorited)
+                  Icon(Icons.favorite, size: 12, color: Colors.red.shade400)
+                else
+                  const Icon(Icons.favorite_border,
+                      size: 12, color: Colors.white),
+                const SizedBox(width: 8),
+                if (isFavorited)
+                  const Text('u fav this!')
+                else
+                  const Text('fav this!'),
+              ],
+            ));
+      },
     );
   }
 

@@ -18,6 +18,6 @@ _$CharacterResponseModelImpl _$$CharacterResponseModelImplFromJson(
 Map<String, dynamic> _$$CharacterResponseModelImplToJson(
         _$CharacterResponseModelImpl instance) =>
     <String, dynamic>{
-      'info': instance.info,
-      'results': instance.results,
+      'info': instance.info.toJson(),
+      'results': instance.results.map((e) => e.toJson()).toList(),
     };

@@ -62,19 +62,7 @@ class _CharactersListState extends ConsumerState<CharactersList> {
         ),
       CharactersLoaded(characters: final characters) => _buildList(characters),
       CharactersError(message: final message) => _buildEmptyList(message),
-      _ => const SliverToBoxAdapter(),
     };
-  }
-
-  Widget _buildLoading(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.25),
-        child: Lottie.asset(
-          'assets/lottie/loading.json',
-        ),
-      ),
-    );
   }
 
   Widget _buildList(List<CharacterModel> characters) {
@@ -99,10 +87,22 @@ class _CharactersListState extends ConsumerState<CharactersList> {
     );
   }
 
+  Widget _buildLoading(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.25),
+        child: Lottie.asset(
+          'assets/lottie/loading.json',
+        ),
+      ),
+    );
+  }
+
   Widget _buildEmptyList([
     String message = 'Shooting in the emptyness...',
   ]) {
     return SliverFillRemaining(
+      hasScrollBody: false,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

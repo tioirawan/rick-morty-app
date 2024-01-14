@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../domain/models/character_model.dart';
+import '../../providers/characters/favorite_characters_provider.dart';
 import '../../providers/common/dominant_color_provider.dart';
 import '../../providers/common/foreground_color_provider.dart';
 import '../../widgets/character/character_gender.dart';
@@ -80,9 +81,24 @@ class DetailPage extends ConsumerWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/favorites');
+                        ref
+                            .read(favoriteCharactersProvider.notifier)
+                            .toggleFavorite(character);
                       },
-                      icon: const FaIcon(Icons.favorite_border),
+                      icon: Consumer(
+                        builder: (context, ref, child) {
+                          final isFavorited = ref
+                              .watch(isCharacterFavoritedProvider(character));
+
+                          if (isFavorited) {
+                            return FaIcon(
+                              Icons.favorite,
+                              color: Colors.red.shade400,
+                            );
+                          }
+                          return const FaIcon(Icons.favorite_border);
+                        },
+                      ),
                     ),
                   ],
                 ),

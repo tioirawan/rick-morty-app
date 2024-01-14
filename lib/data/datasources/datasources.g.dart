@@ -21,5 +21,20 @@ final remoteDatasourceProvider = AutoDisposeProvider<RemoteDatasource>.internal(
 );
 
 typedef RemoteDatasourceRef = AutoDisposeProviderRef<RemoteDatasource>;
+String _$localDatasourceHash() => r'55d14ce5819e9054fd87f3554d82f26005d8c597';
+
+/// See also [localDatasource].
+@ProviderFor(localDatasource)
+final localDatasourceProvider = AutoDisposeProvider<LocalDatasource>.internal(
+  localDatasource,
+  name: r'localDatasourceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$localDatasourceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LocalDatasourceRef = AutoDisposeProviderRef<LocalDatasource>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

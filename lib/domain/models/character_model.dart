@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../common/enums.dart';
@@ -35,6 +37,8 @@ final mockCharacter = CharacterModel.fromJson(
 
 @freezed
 class CharacterModel with _$CharacterModel {
+  const CharacterModel._();
+
   factory CharacterModel({
     int? id,
     String? name,
@@ -52,4 +56,27 @@ class CharacterModel with _$CharacterModel {
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) =>
       _$CharacterModelFromJson(json);
+
+  // to json for storing into sqflite, so origin, location, and episode should be converted to json string
+  Map<String, dynamic> toRow() {
+    final json = toJson();
+
+    json['origin'] = jsonEncode(json['origin']);
+    json['location'] = jsonEncode(json['location']);
+    json['episode'] = jsonEncode(json['episode']);
+
+    return json;
+  }
+
+  factory CharacterModel.fromRow(Map<String, dynamic> row) {
+    final json = row.map((key, value) {
+      if (key == 'origin' || key == 'location' || key == 'episode') {
+        return MapEntry(key, jsonDecode(value));
+      }
+
+      return MapEntry(key, value);
+    });
+
+    return CharacterModel.fromJson(json);
+  }
 }
