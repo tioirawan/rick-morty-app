@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'character_card.dart';
+import '../../../domain/models/character_model.dart';
+import '../../widgets/character/character_card.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -70,9 +71,16 @@ class HomePage extends ConsumerWidget {
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  return const CharacterCard();
-                },
+                (context, index) => CharacterCard(
+                  character: mockCharacter,
+                  imageHeroTag: 'home_character_card_$index',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/detail', arguments: {
+                      'character': mockCharacter,
+                      'imageHeroTag': 'home_character_card_$index',
+                    });
+                  },
+                ),
                 childCount: 20,
               ),
             ),

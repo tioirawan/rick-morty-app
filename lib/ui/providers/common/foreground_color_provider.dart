@@ -4,8 +4,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'foreground_color_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-Color foregroundColor(ForegroundColorRef ref, Color bgColor) {
-  print('foregroundColor');
+Color foregroundColor(ForegroundColorRef ref, Color? bgColor) {
+  if (bgColor == null) {
+    return Colors.black;
+  }
+
   return _fgFromBg(bgColor);
 }
 

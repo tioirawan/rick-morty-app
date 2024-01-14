@@ -6,7 +6,7 @@ part of 'foreground_color_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$foregroundColorHash() => r'b759e2b550e3e3227ecc87dd30acc3d368b964b4';
+String _$foregroundColorHash() => r'beb6103dace27c084a726b3f89564d5ad92807ca';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,7 +40,7 @@ class ForegroundColorFamily extends Family<Color> {
 
   /// See also [foregroundColor].
   ForegroundColorProvider call(
-    Color bgColor,
+    Color? bgColor,
   ) {
     return ForegroundColorProvider(
       bgColor,
@@ -75,7 +75,7 @@ class ForegroundColorFamily extends Family<Color> {
 class ForegroundColorProvider extends Provider<Color> {
   /// See also [foregroundColor].
   ForegroundColorProvider(
-    Color bgColor,
+    Color? bgColor,
   ) : this._internal(
           (ref) => foregroundColor(
             ref as ForegroundColorRef,
@@ -103,7 +103,7 @@ class ForegroundColorProvider extends Provider<Color> {
     required this.bgColor,
   }) : super.internal();
 
-  final Color bgColor;
+  final Color? bgColor;
 
   @override
   Override overrideWith(
@@ -144,7 +144,7 @@ class ForegroundColorProvider extends Provider<Color> {
 
 mixin ForegroundColorRef on ProviderRef<Color> {
   /// The parameter `bgColor` of this provider.
-  Color get bgColor;
+  Color? get bgColor;
 }
 
 class _ForegroundColorProviderElement extends ProviderElement<Color>
@@ -152,7 +152,7 @@ class _ForegroundColorProviderElement extends ProviderElement<Color>
   _ForegroundColorProviderElement(super.provider);
 
   @override
-  Color get bgColor => (origin as ForegroundColorProvider).bgColor;
+  Color? get bgColor => (origin as ForegroundColorProvider).bgColor;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

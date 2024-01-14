@@ -6,7 +6,7 @@ part of 'dominant_color_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dominantColorHash() => r'c7b21b418c4cf5909efc9b4047f1d7a051e07bd7';
+String _$dominantColorHash() => r'61309a82e941fd4a96af13d75a94183c379f253d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,7 +40,7 @@ class DominantColorFamily extends Family<AsyncValue<Color?>> {
 
   /// See also [dominantColor].
   DominantColorProvider call(
-    String imageUrl,
+    String? imageUrl,
   ) {
     return DominantColorProvider(
       imageUrl,
@@ -75,7 +75,7 @@ class DominantColorFamily extends Family<AsyncValue<Color?>> {
 class DominantColorProvider extends FutureProvider<Color?> {
   /// See also [dominantColor].
   DominantColorProvider(
-    String imageUrl,
+    String? imageUrl,
   ) : this._internal(
           (ref) => dominantColor(
             ref as DominantColorRef,
@@ -103,7 +103,7 @@ class DominantColorProvider extends FutureProvider<Color?> {
     required this.imageUrl,
   }) : super.internal();
 
-  final String imageUrl;
+  final String? imageUrl;
 
   @override
   Override overrideWith(
@@ -144,7 +144,7 @@ class DominantColorProvider extends FutureProvider<Color?> {
 
 mixin DominantColorRef on FutureProviderRef<Color?> {
   /// The parameter `imageUrl` of this provider.
-  String get imageUrl;
+  String? get imageUrl;
 }
 
 class _DominantColorProviderElement extends FutureProviderElement<Color?>
@@ -152,7 +152,7 @@ class _DominantColorProviderElement extends FutureProviderElement<Color?>
   _DominantColorProviderElement(super.provider);
 
   @override
-  String get imageUrl => (origin as DominantColorProvider).imageUrl;
+  String? get imageUrl => (origin as DominantColorProvider).imageUrl;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

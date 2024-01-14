@@ -6,7 +6,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'dominant_color_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<Color?> dominantColor(DominantColorRef ref, String imageUrl) async {
+Future<Color?> dominantColor(DominantColorRef ref, String? imageUrl) async {
+  if (imageUrl == null) {
+    return null;
+  }
+
   final paletteGenerator = await PaletteGenerator.fromImageProvider(
     CachedNetworkImageProvider(imageUrl),
   );
