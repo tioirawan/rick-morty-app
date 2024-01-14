@@ -123,4 +123,58 @@ void main() {
     expect(state.currentPage, 2);
     expect(state.maxPage, charactersPage2.info.pages);
   });
+
+  test('should search characters when .search() is called', () async {
+    final charactersPage1 = CharacterResponseModel.fromJson(jsonDecode(
+      await File('test/__data/characters_page_1.json').readAsString(),
+    ));
+    final charactersPage2 = CharacterResponseModel.fromJson(jsonDecode(
+      await File('test/__data/characters_page_2.json').readAsString(),
+    ));
+
+    expect(container.read(charactersRepositoryProvider), repository);
+
+    final listener = Listener();
+
+    container.listen(
+      charactersProvider,
+      listener.call,
+      fireImmediately: true,
+    );
+
+    verify(listener.call(null, isA<CharactersInitial>())).called(1);
+    verifyNoMoreInteractions(listener);
+
+    when(repository.getCharacters(1)).thenAnswer(
+      (_) async => charactersPage1,
+    );
+
+    await container.read(charactersProvider.notifier).initialize();
+
+    verifyNever(
+      listener.call(isA<CharactersInitial>(), isA<CharactersLoading>()),
+    );
+    verify(listener.call(isA<CharactersInitial>(), isA<CharactersLoaded>()))
+        .called(1);
+
+    when(repository.getCharacters(1, name: 'rick')).thenAnswer(
+      (_) async => charactersPage2,
+    );
+
+    await container.read(charactersProvider.notifier).searchCharacters('rick');
+
+    verify(listener.call(isA<CharactersLoaded>(), isA<CharactersLoading>()))
+        .called(1);
+    verify(listener.call(isA<CharactersLoading>(), isA<CharactersLoaded>()))
+        .called(1);
+
+    final state = container.read(charactersProvider);
+
+    expect(
+      state.characters.length,
+      charactersPage2.results.length,
+    );
+    expect(state.currentPage, 1);
+    expect(state.maxPage, charactersPage2.info.pages);
+  });
 }
