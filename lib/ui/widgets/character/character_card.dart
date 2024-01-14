@@ -80,38 +80,44 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
                 left: 128,
                 right: 16,
                 bottom: 8,
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        widget.character.name ?? '',
-                        style: theme.textTheme.titleLarge,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 4),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CharacterSpecies(
-                            character: widget.character,
-                            isExpanded: true,
-                          ),
-                          const SizedBox(height: 2),
-                          CharacterGender(character: widget.character),
-                        ],
-                      ),
-                      _buildFavoriteButton(dominantColor),
-                    ],
-                  ),
-                ),
+                child: widget.withUnfavoriteAnimation
+                    ? SingleChildScrollView(
+                        child: _buildDetail(theme, dominantColor),
+                      )
+                    : _buildDetail(theme, dominantColor),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Column _buildDetail(ThemeData theme, Color dominantColor) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          widget.character.name ?? '',
+          style: theme.textTheme.titleLarge,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        const SizedBox(height: 4),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CharacterSpecies(
+              character: widget.character,
+              isExpanded: true,
+            ),
+            const SizedBox(height: 2),
+            CharacterGender(character: widget.character),
+          ],
+        ),
+        _buildFavoriteButton(dominantColor),
+      ],
     );
   }
 
