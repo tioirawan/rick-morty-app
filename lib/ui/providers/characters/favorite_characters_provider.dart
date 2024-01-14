@@ -5,7 +5,7 @@ import '../../../domain/repositories/favorite_characters_repository.dart';
 
 part 'favorite_characters_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class FavoriteCharacters extends _$FavoriteCharacters {
   FavoriteCharactersRepository get _repository =>
       ref.read(favoriteCharacterRepositoryProvider);
@@ -42,11 +42,12 @@ class FavoriteCharacters extends _$FavoriteCharacters {
 
 @riverpod
 bool isCharacterFavorited(
-    IsCharacterFavoritedRef ref, CharacterModel? character) {
+  IsCharacterFavoritedRef ref,
+  CharacterModel? character,
+) {
   if (character == null) return false;
+
   final favorites = ref.watch(favoriteCharactersProvider).value ?? [];
 
-  return favorites
-          .any((favoriteCharacter) => favoriteCharacter.id == character.id) ==
-      true;
+  return favorites.any((c) => c.id == character.id);
 }

@@ -13,7 +13,7 @@ abstract class FavoriteCharactersRepository {
   Future<List<CharacterModel>> getFavoriteCharacters();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 FavoriteCharactersRepository favoriteCharacterRepository(
   FavoriteCharacterRepositoryRef ref,
 ) =>

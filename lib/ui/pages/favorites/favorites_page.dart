@@ -92,8 +92,10 @@ class FavoritesPage extends StatelessWidget {
             return SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) => CharacterCard(
+                  key: ValueKey(characters[index].id),
                   character: characters[index],
                   imageHeroTag: 'favorite_character_card_$index',
+                  withUnfavoriteAnimation: true,
                   onPressed: () {
                     Navigator.pushNamed(context, '/detail', arguments: {
                       'character': characters[index],

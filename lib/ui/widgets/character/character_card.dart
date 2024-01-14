@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/character_model.dart';
@@ -12,21 +13,25 @@ import 'character_species.dart';
 
 class CharacterCard extends ConsumerStatefulWidget {
   const CharacterCard({
+    super.key,
     required this.character,
     this.imageHeroTag,
     this.onPressed,
-    super.key,
+    this.withUnfavoriteAnimation = false,
   });
 
   final CharacterModel character;
   final String? imageHeroTag;
   final VoidCallback? onPressed;
+  final bool withUnfavoriteAnimation;
 
   @override
   ConsumerState<CharacterCard> createState() => _CharacterCardState();
 }
 
 class _CharacterCardState extends ConsumerState<CharacterCard> {
+  bool _isUnfavorited = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -34,47 +39,51 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
         ref.watch(dominantColorProvider(widget.character.image)).value ??
             Colors.grey.shade200;
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: theme.cardColor,
+    return AnimatedContainer(
+      duration: 300.milliseconds,
+      curve: Curves.easeInOut,
+      decoration: BoxDecoration(
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: dominantColor.withOpacity(0.5),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      margin: widget.withUnfavoriteAnimation && _isUnfavorited
+          ? const EdgeInsets.symmetric(horizontal: 16)
+          : const EdgeInsets.fromLTRB(16, 8, 8, 8) + const EdgeInsets.all(16),
+      height: widget.withUnfavoriteAnimation && _isUnfavorited ? 0 : 138,
+      child: Material(
+        borderRadius: BorderRadius.circular(8),
+        child: InkWell(
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: dominantColor.withOpacity(0.5),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        margin: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-        constraints: const BoxConstraints(minHeight: 138, maxHeight: 138),
-        child: Material(
-          borderRadius: BorderRadius.circular(8),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(8),
-            onTap: widget.onPressed,
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Positioned(
-                  top: -16,
-                  left: -16,
-                  child: widget.imageHeroTag != null
-                      ? Hero(
-                          tag: widget.imageHeroTag!,
-                          child: _buildImage(),
-                        )
-                      : _buildImage(),
-                ),
-                Positioned.fill(
-                  top: 12,
-                  left: 128,
-                  right: 16,
-                  bottom: 8,
+          onTap: widget.onPressed,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Positioned(
+                top: -16,
+                left: -16,
+                child: widget.imageHeroTag != null
+                    ? Hero(
+                        tag: widget.imageHeroTag!,
+                        child: _buildImage(),
+                      )
+                    : _buildImage(),
+              ),
+              Positioned.fill(
+                top: 12,
+                left: 128,
+                right: 16,
+                bottom: 8,
+                child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         widget.character.name ?? '',
@@ -94,13 +103,12 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
                           CharacterGender(character: widget.character),
                         ],
                       ),
-                      const Spacer(),
                       _buildFavoriteButton(dominantColor),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -116,7 +124,14 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
         final forground = ref.watch(foregroundColorProvider(dominantColor));
 
         return FilledButton(
-            onPressed: () {
+            onPressed: () async {
+              if (widget.withUnfavoriteAnimation && isFavorited) {
+                setState(() {
+                  _isUnfavorited = true;
+                });
+
+                await Future.delayed(300.milliseconds);
+              }
               ref.read(favoriteCharactersProvider.notifier).toggleFavorite(
                     widget.character,
                   );
@@ -153,17 +168,23 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
     );
   }
 
-  ClipRRect _buildImage() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: widget.character.image == null || widget.character.image!.isEmpty
-          ? const CharacterImagePlaceholder()
-          : CachedNetworkImage(
-              imageUrl: widget.character.image ?? '',
-              placeholder: (context, url) => const CharacterImagePlaceholder(),
-              width: 128,
-              height: 128,
-            ),
+  Widget _buildImage() {
+    return AnimatedOpacity(
+      duration: 300.milliseconds,
+      curve: Curves.easeInOut,
+      opacity: widget.withUnfavoriteAnimation && _isUnfavorited ? 0 : 1,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: widget.character.image == null || widget.character.image!.isEmpty
+            ? const CharacterImagePlaceholder()
+            : CachedNetworkImage(
+                imageUrl: widget.character.image ?? '',
+                placeholder: (context, url) =>
+                    const CharacterImagePlaceholder(),
+                width: 128,
+                height: 128,
+              ),
+      ),
     );
   }
 }

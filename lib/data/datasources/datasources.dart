@@ -5,9 +5,9 @@ import 'remote_datasource.dart';
 
 part 'datasources.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 RemoteDatasource remoteDatasource(RemoteDatasourceRef ref) =>
     RemoteDatasource();
 
-@riverpod
+@Riverpod(keepAlive: true)
 LocalDatasource localDatasource(LocalDatasourceRef ref) => LocalDatasource();

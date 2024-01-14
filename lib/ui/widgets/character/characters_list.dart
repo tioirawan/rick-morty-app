@@ -73,6 +73,7 @@ class _CharactersListState extends ConsumerState<CharactersList> {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) => CharacterCard(
+          key: ValueKey(characters[index].id),
           character: characters[index],
           imageHeroTag: 'home_character_card_$index',
           onPressed: () {
@@ -81,7 +82,7 @@ class _CharactersListState extends ConsumerState<CharactersList> {
               'imageHeroTag': 'home_character_card_$index',
             });
           },
-        ),
+        ).animate().fadeIn().scaleXY(begin: 0.9),
         childCount: characters.length,
       ),
     );

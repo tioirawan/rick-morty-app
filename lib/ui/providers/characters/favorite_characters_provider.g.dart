@@ -7,7 +7,7 @@ part of 'favorite_characters_provider.dart';
 // **************************************************************************
 
 String _$isCharacterFavoritedHash() =>
-    r'9c500ffbb55842d6b9756c9f53754814409b8e8a';
+    r'b0d3663fa24e90ad9ba10a864df69502713892c3';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -159,12 +159,12 @@ class _IsCharacterFavoritedProviderElement
 }
 
 String _$favoriteCharactersHash() =>
-    r'80292fa31aaf626a8ad58d4e5d8a632b71420fce';
+    r'a76f35a7b33234a9b4f92ddd3bdb4ad48d03f737';
 
 /// See also [FavoriteCharacters].
 @ProviderFor(FavoriteCharacters)
-final favoriteCharactersProvider = AutoDisposeAsyncNotifierProvider<
-    FavoriteCharacters, List<CharacterModel>>.internal(
+final favoriteCharactersProvider =
+    AsyncNotifierProvider<FavoriteCharacters, List<CharacterModel>>.internal(
   FavoriteCharacters.new,
   name: r'favoriteCharactersProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -174,6 +174,6 @@ final favoriteCharactersProvider = AutoDisposeAsyncNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$FavoriteCharacters = AutoDisposeAsyncNotifier<List<CharacterModel>>;
+typedef _$FavoriteCharacters = AsyncNotifier<List<CharacterModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

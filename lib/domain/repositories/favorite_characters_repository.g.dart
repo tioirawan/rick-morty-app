@@ -7,12 +7,12 @@ part of 'favorite_characters_repository.dart';
 // **************************************************************************
 
 String _$favoriteCharacterRepositoryHash() =>
-    r'10ca62d504262a1bf424dd328fa71c7ed110c803';
+    r'f906071f0ca48a7bbbf4d5afbf333641440ebe5b';
 
 /// See also [favoriteCharacterRepository].
 @ProviderFor(favoriteCharacterRepository)
 final favoriteCharacterRepositoryProvider =
-    AutoDisposeProvider<FavoriteCharactersRepository>.internal(
+    Provider<FavoriteCharactersRepository>.internal(
   favoriteCharacterRepository,
   name: r'favoriteCharacterRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,6 +23,6 @@ final favoriteCharacterRepositoryProvider =
 );
 
 typedef FavoriteCharacterRepositoryRef
-    = AutoDisposeProviderRef<FavoriteCharactersRepository>;
+    = ProviderRef<FavoriteCharactersRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

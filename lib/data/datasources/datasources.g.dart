@@ -6,11 +6,11 @@ part of 'datasources.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$remoteDatasourceHash() => r'b1744ce82cbfbecc9a364123235bc5086fc74fe9';
+String _$remoteDatasourceHash() => r'f8242e5a8890dbcff749b216c3f9d910e5cbf59c';
 
 /// See also [remoteDatasource].
 @ProviderFor(remoteDatasource)
-final remoteDatasourceProvider = AutoDisposeProvider<RemoteDatasource>.internal(
+final remoteDatasourceProvider = Provider<RemoteDatasource>.internal(
   remoteDatasource,
   name: r'remoteDatasourceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -20,12 +20,12 @@ final remoteDatasourceProvider = AutoDisposeProvider<RemoteDatasource>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef RemoteDatasourceRef = AutoDisposeProviderRef<RemoteDatasource>;
-String _$localDatasourceHash() => r'55d14ce5819e9054fd87f3554d82f26005d8c597';
+typedef RemoteDatasourceRef = ProviderRef<RemoteDatasource>;
+String _$localDatasourceHash() => r'e12855f966c783fc8f0bf8123a3200c9389ea94a';
 
 /// See also [localDatasource].
 @ProviderFor(localDatasource)
-final localDatasourceProvider = AutoDisposeProvider<LocalDatasource>.internal(
+final localDatasourceProvider = Provider<LocalDatasource>.internal(
   localDatasource,
   name: r'localDatasourceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -35,6 +35,6 @@ final localDatasourceProvider = AutoDisposeProvider<LocalDatasource>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef LocalDatasourceRef = AutoDisposeProviderRef<LocalDatasource>;
+typedef LocalDatasourceRef = ProviderRef<LocalDatasource>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
