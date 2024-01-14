@@ -46,10 +46,7 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
             ),
           ],
         ),
-        margin: const EdgeInsets.symmetric(
-          vertical: 8,
-          horizontal: 16,
-        ),
+        margin: const EdgeInsets.fromLTRB(16, 8, 8, 8),
         height: 138,
         child: Material(
           borderRadius: BorderRadius.circular(8),

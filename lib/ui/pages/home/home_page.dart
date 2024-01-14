@@ -5,11 +5,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/models/character_model.dart';
 import '../../widgets/character/character_card.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  bool _isSearching = false;
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -57,17 +64,45 @@ class HomePage extends ConsumerWidget {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/search');
+                          setState(() {
+                            _isSearching = !_isSearching;
+                          });
                         },
-                        icon: const Icon(Icons.search),
+                        icon: _isSearching
+                            ? const Icon(Icons.close)
+                            : const Icon(Icons.search),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 16),
+            SliverToBoxAdapter(
+              child: AnimatedOpacity(
+                duration: 0.5.seconds,
+                opacity: _isSearching ? 1 : 0,
+                curve: Curves.easeInOut,
+                child: AnimatedContainer(
+                  duration: 0.5.seconds,
+                  curve: Curves.easeInOut,
+                  height: _isSearching ? 56 : 0,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  margin: const EdgeInsets.only(top: 16),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      filled: true,
+                      fillColor: theme.cardColor,
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 16),
+                      prefixIcon: const Icon(Icons.search),
+                    ),
+                  ),
+                ),
+              ),
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(

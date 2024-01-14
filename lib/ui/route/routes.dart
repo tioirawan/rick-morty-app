@@ -5,7 +5,6 @@ import '../../domain/models/character_model.dart';
 import '../pages/detail/detail_page.dart';
 import '../pages/favorites/favorites_page.dart';
 import '../pages/home/home_page.dart';
-import '../pages/search/search_page.dart';
 import '../pages/splash/splash_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -25,10 +24,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             child: child,
           );
         },
-      );
-    case '/search':
-      return MaterialPageRoute(
-        builder: (context) => const SearchPage(),
       );
     case '/detail':
       final arguments = settings.arguments as Map<String, dynamic>;
