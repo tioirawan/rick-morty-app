@@ -68,7 +68,7 @@ class Characters extends _$Characters {
     }
   }
 
-  Future<void> searchCharacters(String name) async {
+  Future<void> searchCharacters(String? name) async {
     final prevState = state;
 
     if (state.name == name) {

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 
 class RemoteDatasource with DioMixin implements Dio {
   RemoteDatasource() {
@@ -9,5 +10,13 @@ class RemoteDatasource with DioMixin implements Dio {
     );
 
     httpClientAdapter = HttpClientAdapter();
+
+    interceptors.add(
+      DioCacheInterceptor(
+        options: CacheOptions(
+          store: MemCacheStore(),
+        ),
+      ),
+    );
   }
 }

@@ -72,11 +72,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                         onPressed: () {
+                          if (_isSearching) {
+                            _clearSearch();
+                          }
                           setState(() {
                             _isSearching = !_isSearching;
                           });
-
-                          _clearSearch();
                         },
                         icon: _isSearching
                             ? const Icon(Icons.close)
@@ -129,6 +130,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
           ),
           onChanged: (value) {
+            print('value: $value  ');
             _debouncer.run(
               () =>
                   ref.read(charactersProvider.notifier).searchCharacters(value),
@@ -148,6 +150,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       _searchTextIsEmpty = true;
     });
     _searchController.clear();
-    ref.read(charactersProvider.notifier).searchCharacters('');
+    ref.read(charactersProvider.notifier).searchCharacters(null);
   }
 }

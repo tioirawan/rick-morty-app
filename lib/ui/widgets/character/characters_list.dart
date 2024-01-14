@@ -26,9 +26,10 @@ class _CharactersListState extends ConsumerState<CharactersList> {
   void initState() {
     super.initState();
 
-    ref.read(charactersProvider.notifier).initialize(delay: 3.seconds);
-
-    widget.scrollController?.addListener(_scrollListener);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(charactersProvider.notifier).initialize(delay: 1.seconds);
+      widget.scrollController?.addListener(_scrollListener);
+    });
   }
 
   @override
