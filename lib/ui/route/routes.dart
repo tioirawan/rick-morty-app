@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../domain/models/character_model.dart';
 import '../pages/detail/detail_page.dart';
+import '../pages/favorites/favorites_page.dart';
 import '../pages/home/home_page.dart';
 import '../pages/search/search_page.dart';
 import '../pages/splash/splash_page.dart';
@@ -14,7 +15,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => const SplashPage(),
       );
     case '/home':
-      //  fade transition
       return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             const HomePage(),
@@ -32,6 +32,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case '/detail':
       final arguments = settings.arguments as Map<String, dynamic>;
+
       final character = arguments['character'] as CharacterModel;
       final imageHeroTag = arguments['imageHeroTag'] as String?;
 
@@ -40,6 +41,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           character: character,
           imageHeroTag: imageHeroTag,
         ),
+      );
+    case '/favorites':
+      return MaterialPageRoute(
+        builder: (context) => const FavoritesPage(),
       );
     default:
       return MaterialPageRoute(
