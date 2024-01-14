@@ -1,4 +1,4 @@
-name: Rick and Morty App
+name: rick_and_morty_app
 description: "A simple app that uses the Rick and Morty API to display a list of characters and their details."
 publish_to: 'none'
 version: 0.1.0
