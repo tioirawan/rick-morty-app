@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:label="irawan"
+        android:label="Rick Morty - Tio Irawan"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

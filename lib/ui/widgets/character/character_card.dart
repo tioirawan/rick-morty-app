@@ -49,9 +49,7 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
           ],
         ),
         margin: const EdgeInsets.fromLTRB(16, 8, 8, 8),
-        // height: 138,
         constraints: const BoxConstraints(minHeight: 138, maxHeight: 138),
-
         child: Material(
           borderRadius: BorderRadius.circular(8),
           child: InkWell(
@@ -124,7 +122,6 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
                   );
             },
             style: FilledButton.styleFrom(
-              // backgroundColor: dominantColor,
               backgroundColor: isFavorited ? dominantColor : Colors.black45,
               foregroundColor: isFavorited ? forground : Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -134,10 +131,17 @@ class _CharacterCardState extends ConsumerState<CharacterCard> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (isFavorited)
-                  Icon(Icons.favorite, size: 12, color: Colors.red.shade400)
+                  Icon(
+                    Icons.favorite,
+                    size: 12,
+                    color: Colors.red.shade400,
+                  )
                 else
-                  const Icon(Icons.favorite_border,
-                      size: 12, color: Colors.white),
+                  const Icon(
+                    Icons.favorite_border,
+                    size: 12,
+                    color: Colors.white,
+                  ),
                 const SizedBox(width: 8),
                 if (isFavorited)
                   const Text('u fav this!')

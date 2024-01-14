@@ -44,7 +44,6 @@ class DetailPage extends ConsumerWidget {
         body: Stack(
           children: [
             Positioned.fill(
-              // gradient of image
               child: ShaderMask(
                 shaderCallback: (rect) {
                   return LinearGradient(
