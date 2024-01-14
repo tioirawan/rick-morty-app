@@ -7,7 +7,10 @@ import '../models/character_response_model.dart';
 part 'characters_repository.g.dart';
 
 abstract class CharactersRepository {
-  Future<CharacterResponseModel> getCharacters(int page);
+  Future<CharacterResponseModel> getCharacters(
+    int page, {
+    String? name,
+  });
 }
 
 @riverpod

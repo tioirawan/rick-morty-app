@@ -41,7 +41,7 @@ class _CharactersListState extends ConsumerState<CharactersList> {
     if (widget.scrollController!.offset >=
             widget.scrollController!.position.maxScrollExtent &&
         !widget.scrollController!.position.outOfRange) {
-      ref.read(charactersProvider.notifier).getCharacters();
+      ref.read(charactersProvider.notifier).loadMoreCharacters();
     }
   }
 
@@ -53,13 +53,14 @@ class _CharactersListState extends ConsumerState<CharactersList> {
       CharactersInitial() => SliverFillRemaining(child: _buildLoading(context)),
       CharactersLoading(characters: final characters) => MultiSliver(
           children: [
-            _buildList(characters),
+            if (characters.isNotEmpty) _buildList(characters),
             SliverToBoxAdapter(
               child: _buildLoading(context),
             ),
           ],
         ),
       CharactersLoaded(characters: final characters) => _buildList(characters),
+      CharactersError(message: final message) => _buildEmptyList(message),
       _ => const SliverToBoxAdapter(),
     };
   }
@@ -97,7 +98,9 @@ class _CharactersListState extends ConsumerState<CharactersList> {
     );
   }
 
-  Widget _buildEmptyList() {
+  Widget _buildEmptyList([
+    String message = 'Shooting in the emptyness...',
+  ]) {
     return SliverFillRemaining(
       child: Center(
         child: Column(
@@ -109,7 +112,7 @@ class _CharactersListState extends ConsumerState<CharactersList> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Shooting in the emptyness...',
+              message,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ],

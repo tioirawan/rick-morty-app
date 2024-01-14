@@ -4,11 +4,13 @@ sealed class CharactersState {
   final List<CharacterModel> characters;
   final int maxPage;
   final int currentPage;
+  final String? name;
 
   const CharactersState({
     required this.characters,
     required this.maxPage,
     required this.currentPage,
+    this.name,
   });
 }
 
@@ -26,6 +28,7 @@ class CharactersLoading extends CharactersState {
     required super.characters,
     required super.maxPage,
     required super.currentPage,
+    super.name,
   });
 }
 
@@ -34,6 +37,7 @@ class CharactersLoaded extends CharactersState {
     required super.characters,
     required super.maxPage,
     required super.currentPage,
+    super.name,
   });
 }
 
@@ -45,5 +49,6 @@ class CharactersError extends CharactersState {
     required super.characters,
     required super.maxPage,
     required super.currentPage,
+    super.name,
   });
 }

@@ -21,13 +21,13 @@ class Characters extends _$Characters {
         await Future.delayed(delay);
       }
 
-      await getCharacters();
+      await loadMoreCharacters();
     }
 
     return;
   }
 
-  Future<void> getCharacters() async {
+  Future<void> loadMoreCharacters() async {
     final nextPage = state.currentPage + 1;
 
     if (state is CharactersLoading || nextPage > state.maxPage) {
@@ -41,16 +41,21 @@ class Characters extends _$Characters {
         characters: prevState.characters,
         maxPage: prevState.maxPage,
         currentPage: prevState.currentPage,
+        name: prevState.name,
       );
     }
 
     try {
-      final response = await _repository.getCharacters(nextPage);
+      final response = await _repository.getCharacters(
+        nextPage,
+        name: state.name,
+      );
 
       state = CharactersLoaded(
         characters: prevState.characters + response.results,
         maxPage: response.info.pages,
         currentPage: nextPage,
+        name: prevState.name,
       );
     } catch (_) {
       state = CharactersError(
@@ -58,6 +63,44 @@ class Characters extends _$Characters {
         characters: prevState.characters,
         maxPage: prevState.maxPage,
         currentPage: prevState.currentPage,
+        name: prevState.name,
+      );
+    }
+  }
+
+  Future<void> searchCharacters(String name) async {
+    final prevState = state;
+
+    if (state.name == name) {
+      return;
+    }
+
+    state = CharactersLoading(
+      characters: [],
+      maxPage: 1,
+      currentPage: 0,
+      name: name,
+    );
+
+    try {
+      final response = await _repository.getCharacters(
+        1,
+        name: name,
+      );
+
+      state = CharactersLoaded(
+        characters: response.results,
+        maxPage: response.info.pages,
+        currentPage: 1,
+        name: name,
+      );
+    } catch (_) {
+      state = CharactersError(
+        message: 'Something went wrong!',
+        characters: prevState.characters,
+        maxPage: prevState.maxPage,
+        currentPage: prevState.currentPage,
+        name: name,
       );
     }
   }
