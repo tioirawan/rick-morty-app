@@ -3,12 +3,12 @@ import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:irawan/domain/models/character_response_model.dart';
-import 'package:irawan/domain/repositories/characters_repository.dart';
-import 'package:irawan/ui/providers/characters/characters_provider.dart';
-import 'package:irawan/ui/providers/characters/characters_state.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:rick_and_morty_app/domain/models/character_response_model.dart';
+import 'package:rick_and_morty_app/domain/repositories/characters_repository.dart';
+import 'package:rick_and_morty_app/ui/providers/characters/characters_provider.dart';
+import 'package:rick_and_morty_app/ui/providers/characters/characters_state.dart';
 
 import 'characters_provider_test.mocks.dart';
 

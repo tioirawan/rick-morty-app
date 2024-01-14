@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:irawan/data/datasources/remote_datasource.dart';
-import 'package:irawan/data/repositories/characters_repository_impl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:rick_and_morty_app/data/datasources/remote_datasource.dart';
+import 'package:rick_and_morty_app/data/repositories/characters_repository_impl.dart';
 
 import 'characters_repository_impl_test.mocks.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:irawan/common/enums.dart';
-import 'package:irawan/domain/models/character_model.dart';
+import 'package:rick_and_morty_app/common/enums.dart';
+import 'package:rick_and_morty_app/domain/models/character_model.dart';
 
 void main() {
   test('should parse json correctly', () {
