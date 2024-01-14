@@ -6,9 +6,9 @@ import '../../domain/repositories/characters_repository.dart';
 import '../datasources/remote_datasource.dart';
 
 class CharactersRepositoryImpl implements CharactersRepository {
-  final RemoteDatasource remoteDataSource;
+  final RemoteDatasource datasource;
 
-  CharactersRepositoryImpl({required this.remoteDataSource});
+  CharactersRepositoryImpl({required this.datasource});
 
   @override
   Future<CharacterResponseModel> getCharacters(
@@ -16,7 +16,7 @@ class CharactersRepositoryImpl implements CharactersRepository {
     String? name,
   }) async {
     try {
-      final response = await remoteDataSource.get(
+      final response = await datasource.get(
         '/character',
         queryParameters: {
           'page': page,
@@ -28,7 +28,7 @@ class CharactersRepositoryImpl implements CharactersRepository {
     } on DioException catch (e) {
       if (e.response?.statusCode == 404) {
         return CharacterResponseModel(
-          info: InfoModel(count: 0, pages: 0, next: '', prev: ''),
+          info: InfoModel(count: 0, pages: 0, next: null, prev: null),
           results: [],
         );
       }

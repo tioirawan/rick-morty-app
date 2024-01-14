@@ -16,6 +16,6 @@ abstract class CharactersRepository {
 @riverpod
 CharactersRepository charactersRepository(CharactersRepositoryRef ref) {
   return CharactersRepositoryImpl(
-    remoteDataSource: ref.watch(remoteDatasourceProvider),
+    datasource: ref.watch(remoteDatasourceProvider),
   );
 }
