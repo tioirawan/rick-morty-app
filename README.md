@@ -3,7 +3,7 @@
 ## Description
 This is a simple app that uses the [Rick and Morty API](https://rickandmortyapi.com/) to display a list of characters and their details. Users can search for characters by name, add characters to their favorites, and view their favorites.
 
-This app is built with Flutter for BIGIO's Mobile App Developer Internship Take Home Challange. Built with [Riverpod](https://riverpod.dev/) for state management, [Dio](https://pub.dev/packages/dio) for networking, and [Sqflite](https://pub.dev/packages/sqflite) for local storage.
+This app is built with Flutter and [Riverpod](https://riverpod.dev/) for state management, [Dio](https://pub.dev/packages/dio) for networking, and [Sqflite](https://pub.dev/packages/sqflite) for local storage.
 
 ## Table of Contents
 - [Rick and Morty App](#rick-and-morty-app)
